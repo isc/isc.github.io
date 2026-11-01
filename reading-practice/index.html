@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#000000" />
+    <title>Marzouzoute</title>
+    <!-- L'adresse de départ des applis installées avant le renommage. Ce manifeste
+         garde leur identifiant : Chrome les met à jour vers la nouvelle adresse. -->
+    <link rel="manifest" href="/marzouzoute/manifest.json" />
+    <script>
+      // Dans l'appli installée, on laisse à Chrome le temps de lire le manifeste.
+      var attente = matchMedia("(display-mode: standalone)").matches ? 4000 : 0
+      setTimeout(function () {
+        location.replace(
+          location.pathname.replace(/^\/reading-practice/, "/marzouzoute") +
+            location.search +
+            location.hash,
+        )
+      }, attente)
+    </script>
+  </head>
+  <body
+    style="
+      background: #000;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 3em 1em;
+    "
+  >
+    <p>Marzouzoute change d'adresse…</p>
+  </body>
+</html>
