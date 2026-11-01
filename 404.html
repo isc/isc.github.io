@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Page introuvable</title>
+    <script>
+      // GitHub ne redirige pas l'adresse d'un site Pages quand son dépôt change
+      // de nom. Ce fichier reçoit tout ce qu'aucun site de isc.github.io ne sert.
+      var DEMENAGES = {
+        "reading-practice": "marzouzoute",
+        "test-relais": "reading-practice",
+      }
+      var m = location.pathname.match(/^\/([^/]+)(\/.*)?$/)
+      if (m && DEMENAGES.hasOwnProperty(m[1])) {
+        location.replace(
+          "/" + DEMENAGES[m[1]] + (m[2] || "/") + location.search + location.hash,
+        )
+      }
+    </script>
+  </head>
+  <body style="font-family: Arial, sans-serif; text-align: center; padding: 3em 1em">
+    <p>Cette page n'existe pas.</p>
+  </body>
+</html>
