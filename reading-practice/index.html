@@ -8,27 +8,73 @@
     <!-- L'adresse de départ des applis installées avant le renommage. Ce manifeste
          garde leur identifiant : Chrome les met à jour vers la nouvelle adresse. -->
     <link rel="manifest" href="/marzouzoute/manifest.json" />
+    <style>
+      body {
+        background: #000;
+        color: #fff;
+        font-family: Arial, sans-serif;
+        font-size: 18px;
+        line-height: 1.5;
+        max-width: 28em;
+        margin: 0 auto;
+        padding: 3em 1em;
+        -webkit-user-select: none;
+        user-select: none;
+      }
+      #attente {
+        text-align: center;
+      }
+      #ipad {
+        display: none;
+      }
+      .ipad #attente {
+        display: none;
+      }
+      .ipad #ipad {
+        display: block;
+      }
+      button {
+        background: #4a90e2;
+        color: #fff;
+        border: 0;
+        border-radius: 999px;
+        font: inherit;
+        font-weight: bold;
+        width: 100%;
+        padding: 0.8em;
+        margin-top: 1em;
+      }
+    </style>
     <script>
-      // Dans l'appli installée, on laisse à Chrome le temps de lire le manifeste.
-      var attente = matchMedia("(display-mode: standalone)").matches ? 4000 : 0
-      setTimeout(function () {
+      function aller() {
         location.replace(
           location.pathname.replace(/^\/reading-practice/, "/marzouzoute") +
             location.search +
             location.hash,
         )
-      }, attente)
+      }
+      // Sur iPad et iPhone, une appli installée ne se met jamais à jour : on
+      // explique comment la remplacer. Sur Android, on laisse à Chrome le temps
+      // de lire le manifeste, il s'occupe du reste.
+      if (navigator.standalone) {
+        document.documentElement.className = "ipad"
+      } else {
+        setTimeout(aller, matchMedia("(display-mode: standalone)").matches ? 4000 : 0)
+      }
     </script>
   </head>
-  <body
-    style="
-      background: #000;
-      color: #fff;
-      font-family: Arial, sans-serif;
-      text-align: center;
-      padding: 3em 1em;
-    "
-  >
-    <p>Marzouzoute change d'adresse…</p>
+  <body>
+    <p id="attente">Marzouzoute change d'adresse…</p>
+    <div id="ipad">
+      <h1>Marzouzoute a déménagé !</h1>
+      <p>Pour retrouver l'appli en plein écran :</p>
+      <ol>
+        <li>Ouvre Safari et va sur <b>isc.github.io/marzouzoute</b></li>
+        <li>Touche Partager, puis « Sur l'écran d'accueil »</li>
+        <li>Supprime cette ancienne icône</li>
+      </ol>
+      <p>Les scores ne suivront peut-être pas sur la nouvelle icône.</p>
+      <button onclick="aller()">Jouer quand même</button>
+    </div>
   </body>
 </html>
